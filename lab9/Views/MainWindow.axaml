@@ -1,0 +1,31 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:lab9.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="using:lab9.Models"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="lab9.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="lab9">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+  <Grid Background="LightBlue" ColumnDefinitions="*, 50, *, 50" RowDefinitions="*">
+
+    <TreeView Grid.Column="0" Items="{Binding Items}" SelectedItem="{Binding SelectedItem}">
+      <TreeView.DataTemplates>
+        <TreeDataTemplate DataType="{x:Type model:FileTreeItem}" ItemsSource="{Binding Items}">
+          <TextBlock Text="{Binding Name}"/>
+        </TreeDataTemplate>
+      </TreeView.DataTemplates>
+    </TreeView>
+
+    <Button Grid.Column="1" IsEnabled="{Binding MOVE}" Command="{Binding MoveImage}" CommandParameter="-1" Content="Left"></Button>
+    <Image Grid.Column="2" Source="{Binding Image}" ToolTip.Tip="{Binding CurrentPath}"/>
+    <Button Grid.Column="3" IsEnabled="{Binding MOVE}" Command="{Binding MoveImage}" CommandParameter="1" Content="Right"></Button>
+  </Grid>
+
+</Window>
